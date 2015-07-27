@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmn20="http://www.omg.org/bpmn20" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:drools="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="_n7_swANMEeObtMidnZ7lQg" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.omg.org/bpmn20" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="_commandItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="__C9273EB3-AA10-4A6A-8578-1269B0565554_CommandClassInputItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
+  <bpmn2:itemDefinition id="ItemDefinition_2" structureRef="ObjectDataType"/>
+  <bpmn2:itemDefinition id="_Integer" structureRef="Integer"/>
+  <bpmn2:error id="java.lang.IllegalArgumentException" errorCode="java.lang.IllegalArgumentException"/>
+  <bpmn2:process id="AsyncExecution" drools:version="1" drools:packageName="org.jbpm.example" drools:adHoc="false" name="Simple async execution Process" isExecutable="true">
+    <bpmn2:property id="command"/>
+    <bpmn2:property id="retryInterval" itemSubjectRef="_Integer"/>
+    <bpmn2:property id="retryCount" itemSubjectRef="_Integer"/>
+    <bpmn2:property id="retryMax" itemSubjectRef="_Integer"/>
+    <bpmn2:property id="serviceStatus" itemSubjectRef="__C9273EB3-AA10-4A6A-8578-1269B0565554_CommandClassInputItem"/>
+    <bpmn2:property id="serviceMsDelay" itemSubjectRef="__C9273EB3-AA10-4A6A-8578-1269B0565554_CommandClassInputItem"/>
+    <bpmn2:property id="serviceRetryTarget" itemSubjectRef="_Integer"/>
+    <bpmn2:startEvent id="_8AF71F13-5CCA-46F1-89D3-55813DC87983" drools:bgcolor="#9acd32" drools:selectable="true" name="StartProcess">
+      <bpmn2:outgoing>bpmn20:_82603EAE-DA8C-4FAC-92FA-6873284A162E</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="_82603EAE-DA8C-4FAC-92FA-6873284A162E" drools:priority="1" drools:bgcolor="#000000" drools:selectable="true" name="" sourceRef="_8AF71F13-5CCA-46F1-89D3-55813DC87983" targetRef="_672EF86B-61DC-48CD-8F53-5937EBC0BF9A"/>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_2" name="Check Complete" gatewayDirection="Diverging">
+      <bpmn2:incoming>bpmn20:SequenceFlow_8</bpmn2:incoming>
+      <bpmn2:outgoing>bpmn20:SequenceFlow_5</bpmn2:outgoing>
+      <bpmn2:outgoing>bpmn20:SequenceFlow_9</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_5" drools:priority="1" sourceRef="ExclusiveGateway_2" targetRef="_097F740E-3C01-42AD-B81E-0E44E5C832D7">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_2" language="http://www.java.com/java">serviceStatus == &quot;complete&quot;</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_9" drools:priority="1" sourceRef="ExclusiveGateway_2" targetRef="ExclusiveGateway_3">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_5" language="http://www.java.com/java">serviceStatus != &quot;complete&quot;</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:task id="_C9273EB3-AA10-4A6A-8578-1269B0565554" drools:selectable="true" drools:taskName="async" name="Call Service">
+      <bpmn2:incoming>bpmn20:SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>bpmn20:SequenceFlow_6</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_n8AT0ANMEeObtMidnZ7lQg">
+        <bpmn2:dataInput id="_C9273EB3-AA10-4A6A-8578-1269B0565554_TaskNameInput" name="TaskName"/>
+        <bpmn2:dataInput id="_C9273EB3-AA10-4A6A-8578-1269B0565554_CommandClassInput" drools:dtype="String" itemSubjectRef="_commandItem" name="CommandClass"/>
+        <bpmn2:dataInput id="DataInput_1" name="serviceMsDelay"/>
+        <bpmn2:dataInput id="DataInput_3" name="serviceRetryTarget"/>
+        <bpmn2:dataOutput id="DataOutput_1" itemSubjectRef="__C9273EB3-AA10-4A6A-8578-1269B0565554_CommandClassInputItem" name="serviceStatus"/>
+        <bpmn2:inputSet id="_n8AT0QNMEeObtMidnZ7lQg">
+          <bpmn2:dataInputRefs>_C9273EB3-AA10-4A6A-8578-1269B0565554_CommandClassInput</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_C9273EB3-AA10-4A6A-8578-1269B0565554_TaskNameInput</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_1</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_3</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_n8AT0gNMEeObtMidnZ7lQg">
+          <bpmn2:dataOutputRefs>DataOutput_1</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_n8AT0wNMEeObtMidnZ7lQg">
+        <bpmn2:targetRef>_C9273EB3-AA10-4A6A-8578-1269B0565554_TaskNameInput</bpmn2:targetRef>
+        <bpmn2:assignment id="_n8AT1ANMEeObtMidnZ7lQg">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_n8AT1QNMEeObtMidnZ7lQg">async</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_n8AT1gNMEeObtMidnZ7lQg">_C9273EB3-AA10-4A6A-8578-1269B0565554_TaskNameInput</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_n8AT1wNMEeObtMidnZ7lQg">
+        <bpmn2:sourceRef>command</bpmn2:sourceRef>
+        <bpmn2:targetRef>_C9273EB3-AA10-4A6A-8578-1269B0565554_CommandClassInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_1">
+        <bpmn2:targetRef>DataInput_1</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_3">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_9" language="http://www.java.com/java">20000</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_7">DataInput_1</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_3">
+        <bpmn2:targetRef>DataInput_3</bpmn2:targetRef>
+        <bpmn2:assignment id="Assignment_4">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_12" language="http://www.java.com/java">10</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_10">DataInput_3</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_1">
+        <bpmn2:sourceRef>DataOutput_1</bpmn2:sourceRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_6" drools:priority="1" sourceRef="_C9273EB3-AA10-4A6A-8578-1269B0565554" targetRef="ScriptTask_1"/>
+    <bpmn2:endEvent id="_6EEC5980-2765-4629-862D-0F62DB77ED7F" drools:bgcolor="#ff6347" drools:selectable="true" name="Complete">
+      <bpmn2:incoming>bpmn20:_966E0B30-6FDC-49F5-B6BE-80E98A36B4E7</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="_n7_swQNMEeObtMidnZ7lQg"/>
+    </bpmn2:endEvent>
+    <bpmn2:endEvent id="EndEvent_1" name="Retries Exceeded">
+      <bpmn2:incoming>bpmn20:SequenceFlow_12</bpmn2:incoming>
+      <bpmn2:errorEventDefinition id="ErrorEventDefinition_1"/>
+    </bpmn2:endEvent>
+    <bpmn2:scriptTask id="ScriptTask_1" name="Update Retry Metadata" scriptFormat="http://www.java.com/java">
+      <bpmn2:incoming>bpmn20:SequenceFlow_6</bpmn2:incoming>
+      <bpmn2:outgoing>bpmn20:SequenceFlow_8</bpmn2:outgoing>
+      <bpmn2:script>retryCount++
+</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_8" drools:priority="1" sourceRef="ScriptTask_1" targetRef="ExclusiveGateway_2"/>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_3" name="Is Max Retry" gatewayDirection="Diverging">
+      <bpmn2:incoming>bpmn20:SequenceFlow_9</bpmn2:incoming>
+      <bpmn2:outgoing>bpmn20:SequenceFlow_7</bpmn2:outgoing>
+      <bpmn2:outgoing>bpmn20:SequenceFlow_11</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_7" drools:priority="1" name="" sourceRef="ExclusiveGateway_3" targetRef="ScriptTask_4">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_6" language="http://www.java.com/java">retryCount >= retryMax</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_11" drools:priority="1" sourceRef="ExclusiveGateway_3" targetRef="ScriptTask_2">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_8" language="http://www.java.com/java">retryCount &lt; retryMax</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:scriptTask id="_672EF86B-61DC-48CD-8F53-5937EBC0BF9A" drools:selectable="true" name="Service Entry" scriptFormat="http://www.java.com/java">
+      <bpmn2:incoming>bpmn20:_82603EAE-DA8C-4FAC-92FA-6873284A162E</bpmn2:incoming>
+      <bpmn2:outgoing>bpmn20:SequenceFlow_1</bpmn2:outgoing>
+      <bpmn2:script>System.out.println(&quot;Starting service retry handler - calling service: &quot; + command);
+</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" drools:priority="1" name="" sourceRef="_672EF86B-61DC-48CD-8F53-5937EBC0BF9A" targetRef="ExclusiveGateway_1"/>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_1" name="" gatewayDirection="Diverging">
+      <bpmn2:incoming>bpmn20:SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:incoming>bpmn20:SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>bpmn20:SequenceFlow_2</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" drools:priority="1" name="" sourceRef="ExclusiveGateway_1" targetRef="_C9273EB3-AA10-4A6A-8578-1269B0565554"/>
+    <bpmn2:scriptTask id="_097F740E-3C01-42AD-B81E-0E44E5C832D7" drools:selectable="true" name="Log Complete" scriptFormat="http://www.java.com/java">
+      <bpmn2:incoming>bpmn20:SequenceFlow_5</bpmn2:incoming>
+      <bpmn2:outgoing>bpmn20:_966E0B30-6FDC-49F5-B6BE-80E98A36B4E7</bpmn2:outgoing>
+      <bpmn2:script>System.out.println(&quot;Starting service retry handler - completed service: &quot; + command);
+</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="_966E0B30-6FDC-49F5-B6BE-80E98A36B4E7" drools:priority="1" drools:bgcolor="#000000" drools:selectable="true" name="" sourceRef="_097F740E-3C01-42AD-B81E-0E44E5C832D7" targetRef="_6EEC5980-2765-4629-862D-0F62DB77ED7F"/>
+    <bpmn2:scriptTask id="ScriptTask_4" name="Log Retry" scriptFormat="http://www.java.com/java">
+      <bpmn2:incoming>bpmn20:SequenceFlow_7</bpmn2:incoming>
+      <bpmn2:outgoing>bpmn20:SequenceFlow_15</bpmn2:outgoing>
+      <bpmn2:script>System.out.println(&quot;Starting service retry handler - retrying service: &quot; + command);</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_15" drools:priority="1" sourceRef="ScriptTask_4" targetRef="IntermediateCatchEvent_1"/>
+    <bpmn2:scriptTask id="ScriptTask_2" name="Log Abort" scriptFormat="http://www.java.com/java">
+      <bpmn2:incoming>bpmn20:SequenceFlow_11</bpmn2:incoming>
+      <bpmn2:outgoing>bpmn20:SequenceFlow_12</bpmn2:outgoing>
+      <bpmn2:script>System.out.println(&quot;Starting service retry handler - aborted service after maximum retries: &quot; + command);</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_12" drools:priority="1" sourceRef="ScriptTask_2" targetRef="EndEvent_1"/>
+    <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_1" name="Retry Delay">
+      <bpmn2:incoming>bpmn20:SequenceFlow_15</bpmn2:incoming>
+      <bpmn2:outgoing>bpmn20:SequenceFlow_3</bpmn2:outgoing>
+      <bpmn2:timerEventDefinition id="TimerEventDefinition_1">
+        <bpmn2:timeDuration xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1" language="http://www.java.com/java">${retryInterval}</bpmn2:timeDuration>
+      </bpmn2:timerEventDefinition>
+    </bpmn2:intermediateCatchEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" drools:priority="1" name="" sourceRef="IntermediateCatchEvent_1" targetRef="ExclusiveGateway_1"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="_n8AT2QNMEeObtMidnZ7lQg">
+    <bpmndi:BPMNPlane id="_n8AT2gNMEeObtMidnZ7lQg" bpmnElement="AsyncExecution">
+      <bpmndi:BPMNShape id="_n8AT2wNMEeObtMidnZ7lQg" bpmnElement="_8AF71F13-5CCA-46F1-89D3-55813DC87983">
+        <dc:Bounds height="30.0" width="30.0" x="40.0" y="38.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_1" bpmnElement="ExclusiveGateway_1" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="260.0" y="28.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_2" bpmnElement="ExclusiveGateway_2" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="788.0" y="28.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_n8AT3QNMEeObtMidnZ7lQg" bpmnElement="_6EEC5980-2765-4629-862D-0F62DB77ED7F">
+        <dc:Bounds height="28.0" width="28.0" x="1038.0" y="39.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_IntermediateCatchEvent_1" bpmnElement="IntermediateCatchEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="425.0" y="163.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_3" bpmnElement="ExclusiveGateway_3" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="788.0" y="155.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="1034.0" y="162.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_n8AT4ANMEeObtMidnZ7lQg" bpmnElement="_C9273EB3-AA10-4A6A-8578-1269B0565554">
+        <dc:Bounds height="66.0" width="126.0" x="380.0" y="20.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_1" bpmnElement="ScriptTask_1">
+        <dc:Bounds height="50.0" width="110.0" x="630.0" y="28.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_n8AT3ANMEeObtMidnZ7lQg" bpmnElement="_672EF86B-61DC-48CD-8F53-5937EBC0BF9A">
+        <dc:Bounds height="62.0" width="95.0" x="120.0" y="22.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_n8AT4gNMEeObtMidnZ7lQg" bpmnElement="_097F740E-3C01-42AD-B81E-0E44E5C832D7">
+        <dc:Bounds height="67.0" width="93.0" x="888.0" y="20.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_4" bpmnElement="ScriptTask_4">
+        <dc:Bounds height="50.0" width="110.0" x="630.0" y="155.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_2" bpmnElement="ScriptTask_2">
+        <dc:Bounds height="55.0" width="110.0" x="880.0" y="153.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="_n8AT3gNMEeObtMidnZ7lQg" bpmnElement="_82603EAE-DA8C-4FAC-92FA-6873284A162E" sourceElement="_n8AT2wNMEeObtMidnZ7lQg" targetElement="_n8AT3ANMEeObtMidnZ7lQg">
+        <di:waypoint xsi:type="dc:Point" x="70.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="92.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="92.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="120.0" y="53.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_n8AT3wNMEeObtMidnZ7lQg" bpmnElement="_966E0B30-6FDC-49F5-B6BE-80E98A36B4E7" sourceElement="_n8AT4gNMEeObtMidnZ7lQg" targetElement="_n8AT3QNMEeObtMidnZ7lQg">
+        <di:waypoint xsi:type="dc:Point" x="981.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1006.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1006.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1038.0" y="53.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_n8AT6QNMEeObtMidnZ7lQg">
+        <di:waypoint xsi:type="dc:Point" x="50.0" y="55.0"/>
+        <di:waypoint xsi:type="dc:Point" x="50.0" y="55.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_n8AT3ANMEeObtMidnZ7lQg" targetElement="BPMNShape_ExclusiveGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="215.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="235.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="235.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="260.0" y="53.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="_n8AT4ANMEeObtMidnZ7lQg">
+        <di:waypoint xsi:type="dc:Point" x="311.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="342.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="342.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="380.0" y="53.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="BPMNShape_ExclusiveGateway_2" targetElement="_n8AT4gNMEeObtMidnZ7lQg">
+        <di:waypoint xsi:type="dc:Point" x="839.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="861.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="861.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="888.0" y="53.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_IntermediateCatchEvent_1" targetElement="BPMNShape_ExclusiveGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="425.0" y="181.0"/>
+        <di:waypoint xsi:type="dc:Point" x="285.0" y="181.0"/>
+        <di:waypoint xsi:type="dc:Point" x="285.0" y="79.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="BPMNShape_ExclusiveGateway_3" targetElement="BPMNShape_ScriptTask_4">
+        <di:waypoint xsi:type="dc:Point" x="788.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="757.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="757.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="740.0" y="180.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="_n8AT4ANMEeObtMidnZ7lQg" targetElement="BPMNShape_ScriptTask_1">
+        <di:waypoint xsi:type="dc:Point" x="506.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="561.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="561.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="630.0" y="53.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_8" bpmnElement="SequenceFlow_8" sourceElement="BPMNShape_ScriptTask_1" targetElement="BPMNShape_ExclusiveGateway_2">
+        <di:waypoint xsi:type="dc:Point" x="740.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="761.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="761.0" y="53.0"/>
+        <di:waypoint xsi:type="dc:Point" x="788.0" y="53.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="SequenceFlow_9" sourceElement="BPMNShape_ExclusiveGateway_2" targetElement="BPMNShape_ExclusiveGateway_3">
+        <di:waypoint xsi:type="dc:Point" x="813.0" y="79.0"/>
+        <di:waypoint xsi:type="dc:Point" x="813.0" y="113.0"/>
+        <di:waypoint xsi:type="dc:Point" x="813.0" y="113.0"/>
+        <di:waypoint xsi:type="dc:Point" x="813.0" y="155.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_11" bpmnElement="SequenceFlow_11" sourceElement="BPMNShape_ExclusiveGateway_3" targetElement="BPMNShape_ScriptTask_2">
+        <di:waypoint xsi:type="dc:Point" x="839.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="857.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="857.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="880.0" y="180.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_12" bpmnElement="SequenceFlow_12" sourceElement="BPMNShape_ScriptTask_2" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="990.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1009.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1009.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1034.0" y="180.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_15" bpmnElement="SequenceFlow_15" sourceElement="BPMNShape_ScriptTask_4" targetElement="BPMNShape_IntermediateCatchEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="630.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="481.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="481.0" y="181.0"/>
+        <di:waypoint xsi:type="dc:Point" x="461.0" y="181.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
