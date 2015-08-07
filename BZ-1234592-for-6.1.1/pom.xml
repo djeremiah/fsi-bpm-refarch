@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.redhat.bpms</groupId>
+	<artifactId>BZ-1234592-for-6.1.1</artifactId>
+	<version>BZ-123459</version>
+	<packaging>pom</packaging>
+	<name>Installs the patch artifacts into your maven repository</name>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- Install the patch BZ-1234592 into the maven repository -->
+				<!-- * This can be removed the release after the 6.2.0.Final-redhat-6 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<configuration>
+						<file>lib/BZ-1234592-for-6.1.1/jbpm-executor-6.2.0.Final-redhat-6-BZ-1234592.jar</file>
+						<sources>lib/BZ-1234592-for-6.1.1/jbpm-executor-6.2.0.Final-redhat-6-BZ-1234592-sources.jar</sources>
+						<groupId>org.jbpm</groupId>
+						<artifactId>jbpm-executor</artifactId>
+						<version>6.2.0.Final-redhat-6-BZ-1234592</version>
+						<packaging>jar</packaging>
+					</configuration>
+					<executions>
+						<execution>
+							<phase>install</phase>
+							<goals>
+								<goal>install-file</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- Install the patch BZ-1234592 into the maven repository -->
+				<!-- * This can be removed the release after the 6.2.0.Final-redhat-6 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<configuration>
+						<file>lib/BZ-1234592-for-6.1.1/jbpm-persistence-jpa-6.2.0.Final-redhat-6-BZ-1234592.jar</file>
+						<sources>lib/BZ-1234592-for-6.1.1/jbpm-persistence-jpa-6.2.0.Final-redhat-6-BZ-1234592-sources.jar</sources>
+						<groupId>org.jbpm</groupId>
+						<artifactId>jbpm-persistence-jpa</artifactId>
+						<version>6.2.0.Final-redhat-6-BZ-1234592</version>
+						<packaging>jar</packaging>
+					</configuration>
+					<executions>
+						<execution>
+							<phase>installs</phase>
+							<goals>
+								<goal>install-file</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

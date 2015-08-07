@@ -1,0 +1,20 @@
+
+# Red Hat FSI Solutions Reference Architecture - JBoss BPMS and Spring embedded on IBM WAS-ND
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
