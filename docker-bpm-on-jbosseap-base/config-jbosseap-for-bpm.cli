@@ -1,0 +1,26 @@
+
+# copy the etc/oracle directory to the $JBOSS_HOME/modules/system/layers/base directory first
+
+/subsystem=datasources/jdbc-driver=oracle:add(driver-name=oracle,driver-module-name=oracle,driver-xa-datasource-class-name=oracle.jdbc.xa.client.OracleXADataSource)
+
+xa-data-source add --name=jbpmAppDS --jndi-name="java:jboss/datasources/jbpmAppDS" --driver-name=oracle
+
+cd /subsystem=datasources/xa-data-source=jbpmAppDS/
+
+:write-attribute(name=same-rm-override,value=false)
+:write-attribute(name=no-tx-separate-pool,value=true)
+:write-attribute(name=valid-connection-checker-class-name,value=org.jboss.jca.adapters.jdbc.extensions.oracle.OracleValidConnectionChecker)
+:write-attribute(name=stale-connection-checker-class-name,value=org.jboss.jca.adapters.jdbc.extensions.oracle.OracleStaleConnectionChecker)
+:write-attribute(name=exception-sorter-class-name,value=org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter)
+
+:write-attribute(name=user-name,value=jbpmapp)
+:write-attribute(name=password,value=jbpmapp)
+
+/subsystem=datasources/xa-data-source=jbpmAppDS/xa-datasource-properties=URL:add(value=jdbc:oracle:thin:@host130.rdu.salab.redhat.com:1521:XE)
+
+cd /
+
+xa-data-source enable --name=jbpmAppDS
+
+/subsystem=datasources/xa-data-source=jbpmAppDS/:test-connection-in-pool
+

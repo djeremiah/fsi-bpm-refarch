@@ -11,7 +11,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<version.jboss.bxms>6.2.0.Final-redhat-6</version.jboss.bxms>
+		<version.jboss.bxms>6.2.0.Final-redhat-11</version.jboss.bxms>
 		<version.jboss.eap>6.4.0.GA</version.jboss.eap>
 
 		<version.spring>3.2.13.RELEASE</version.spring>
@@ -223,12 +223,12 @@
 				<groupId>javax.enterprise</groupId>
 				<version>1.0</version>
 				<scope>provided</scope>
-				<exclusions>
-					<exclusion>
-						<artifactId>javax.inject</artifactId>
-						<groupId>javax.inject</groupId>
-					</exclusion>
-				</exclusions>
+<!-- 				<exclusions> -->
+<!-- 					<exclusion> -->
+<!-- 						<artifactId>javax.inject</artifactId> -->
+<!-- 						<groupId>javax.inject</groupId> -->
+<!-- 					</exclusion> -->
+<!-- 				</exclusions> -->
 			</dependency>
 			<dependency>
 				<artifactId>javax.inject</artifactId>
@@ -316,10 +316,10 @@
 					<artifactId>javassist</artifactId>
 					<groupId>org.javassist</groupId>
 				</exclusion>
-				<exclusion>
-					<artifactId>hibernate-jpa-2.0-api</artifactId>
-					<groupId>org.hibernate.javax.persistence</groupId>
-				</exclusion>
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>hibernate-jpa-2.0-api</artifactId> -->
+<!-- 					<groupId>org.hibernate.javax.persistence</groupId> -->
+<!-- 				</exclusion> -->
 				<exclusion>
 					<artifactId>
 						jboss-transaction-api_1.1_spec
@@ -343,12 +343,12 @@
 		<dependency>
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-audit</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>hibernate-jpa-2.0-api</artifactId>
-					<groupId>org.hibernate.javax.persistence</groupId>
-				</exclusion>
-			</exclusions>
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>hibernate-jpa-2.0-api</artifactId> -->
+<!-- 					<groupId>org.hibernate.javax.persistence</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
 		</dependency>
 		<dependency>
 			<groupId>org.jbpm</groupId>
@@ -438,22 +438,22 @@
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-kie-services</artifactId>
 			<exclusions>
-				<exclusion>
-					<artifactId>javax.inject</artifactId>
-					<groupId>javax.inject</groupId>
-				</exclusion>
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>javax.inject</artifactId> -->
+<!-- 					<groupId>javax.inject</groupId> -->
+<!-- 				</exclusion> -->
 				<exclusion>
 					<artifactId>javassist</artifactId>
 					<groupId>org.javassist</groupId>
 				</exclusion>
-				<exclusion>
+				<!--<exclusion>
 					<artifactId>hibernate-jpa-2.0-api</artifactId>
 					<groupId>org.hibernate.javax.persistence</groupId>
 				</exclusion>
-				<exclusion>
+				 <exclusion>
 					<artifactId>cdi-api</artifactId>
 					<groupId>javax.enterprise</groupId>
-				</exclusion>
+				</exclusion> -->
 				<exclusion>
 					<artifactId>
 						jboss-transaction-api_1.1_spec
@@ -488,10 +488,10 @@
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-executor</artifactId>
 			<exclusions>
-				<exclusion>
-					<artifactId>javax.inject</artifactId>
-					<groupId>javax.inject</groupId>
-				</exclusion>
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>javax.inject</artifactId> -->
+<!-- 					<groupId>javax.inject</groupId> -->
+<!-- 				</exclusion> -->
 				<exclusion>
 					<artifactId>cdi-api</artifactId>
 					<groupId>javax.enterprise</groupId>
@@ -525,7 +525,6 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<scope>test</scope>
 			<exclusions>
 				<exclusion>
 					<artifactId>javassist</artifactId>
@@ -546,7 +545,6 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<scope>test</scope>
 			<exclusions>
 				<exclusion>
 					<artifactId>javassist</artifactId>
@@ -597,10 +595,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
 		</dependency>
 
 		<!-- Spring Security -->
@@ -676,6 +670,11 @@
 		<dependency>
 			<groupId>org.codehaus.btm</groupId>
 			<artifactId>btm</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
