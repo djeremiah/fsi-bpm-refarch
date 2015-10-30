@@ -127,6 +127,8 @@ Oracle can be connected to and browsed using a tool like sqlplus, [ExecuteQuery]
 
 ## Roadmap
 
+1. Add patches to BPMS wars
+1. Update to BPMS 6.2.x (once GA)
 1. Complete Spring+BPM application, and the bill-of-materials
 1. Create promotion deployment script that pushed kjar and dependencies to execution environment, and signals deployment
 1. Add gitlab server, and demonstrate git_hooks
