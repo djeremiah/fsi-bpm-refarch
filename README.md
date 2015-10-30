@@ -42,9 +42,9 @@ BPM on JBoss EAP & Tomcat (work in progress)
 
 Before you can build and run this set of docker images you need to download the IBM installation manager and the three part install of WebSphere Application Server 8.5 for Developers.  
 
-### A) [Register for IBM developer program](https://www.ibm.com/account/profile/us?page=reg)
+#### A) [Register for IBM developer program](https://www.ibm.com/account/profile/us?page=reg)
 
-### B) Download IBM Installation Manager and WebSphere
+#### B) Download IBM Installation Manager and WebSphere
 
 Go to the [IBM WebSphere download page](http://www.ibm.com/developerworks/downloads/ws/wasdevelopers/), click Download, select the HTTP / Download Director option, and then continue.  
 
@@ -77,11 +77,11 @@ IBM WebSphere Application Server for Developers, Full Profile (Part 3 of 3)
 was.repo.8550.developers.ilan_part3.zip  (903M) 
 ```
 
-### C) Install and Start docker
+#### C) Install and Start docker
 
 [Install and Start docker](https://docs.docker.com/installation/) and test that docker commands such as `docker ps` works.
 
-### D) Install Maven
+#### D) Install Maven
 
 [Install maven](https://maven.apache.org/install.html) and make sure that the `mvn` command is on the system bin path on the host system.
 
@@ -114,20 +114,13 @@ The following script reset the, or start, the Oracle XE database and BPMS Servic
 * Admin user: 	   `admin`	
 * Admin pass: 	   `Redhat1!`
 
-* BPM Interface:	 
-`http://localhost:9080/business-central/`
-* Super user:		 
-`demo`
-* Developer: 		 
-`bpmdeveloper`
-* Analyst:		 
-`bpmanalyst`
-* Manager:		 
-`bpmmanager`
-* User:			 
-`bpmuser`
-* Default pass:	 
-`Redhat1!`
+* BPM Interface: `http://localhost:9080/business-central/`
+* Super user: 	 `demo`
+* Developer: 	 `bpmdeveloper`
+* Analyst:		 `bpmanalyst`
+* Manager:		 `bpmmanager`
+* User:			 `bpmuser`
+* Default pass:	 `Redhat1!`
 
 
 ## References
