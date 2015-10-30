@@ -77,11 +77,13 @@ IBM WebSphere Application Server for Developers, Full Profile (Part 3 of 3)
 was.repo.8550.developers.ilan_part3.zip  (903M) 
 ```
 
+### C) Install and Start docker
 
-### D) [Install and Start docker](https://docs.docker.com/installation/)
+[Install and Start docker](https://docs.docker.com/installation/) and test that docker commands such as `docker ps` works.
 
+### D) Install Maven
 
-### E) [Install Maven](https://maven.apache.org/install.html)
+[Install maven](https://maven.apache.org/install.html) and make sure that the `mvn` command is on the system bin path on the host system.
 
 
 ## Building the Reference Architecture
