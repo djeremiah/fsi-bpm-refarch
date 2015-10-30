@@ -77,11 +77,17 @@ IBM WebSphere Application Server for Developers, Full Profile (Part 3 of 3)
 was.repo.8550.developers.ilan_part3.zip  (903M) 
 ```
 
-#### C) Install and Start docker
+#### C) Download JBoss BPM Suite for WebSphere
+
+Download [boss-bpmsuite-6.1.0.GA-deployable-was8.zip](https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=37663&product=bpm.suite&version=&downloadType=distributions) then moveto `fsi-bpm-refarch/docker-ibm-was/jboss-bpmsuite-6.1.0.GA-deployable-was8.zip`
+
+
+#### D) Install and Start docker
 
 [Install and Start docker](https://docs.docker.com/installation/) and test that docker commands such as `docker ps` works.
 
-#### D) Install Maven
+
+#### E) Install Maven
 
 [Install maven](https://maven.apache.org/install.html) and make sure that the `mvn` command is on the system bin path on the host system.
 
