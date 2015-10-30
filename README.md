@@ -7,67 +7,82 @@ Red Hat's JBoss BPM Suite provides you the choice of Java EE or Web container to
 
 JBoss BPMS on WebSphere in Docker
 
-* docker-ibm-im				Base IBM installation manager image
-* docker-ibm-was			Base WebSphere Application Server image
-* docker-bpm-on-was-base  	Base websphere configuration with all the configured security, datasources, JMS, etc.
-* docker-bpm-on-was 		Fully installed and configured business-central, dashbuilder, and kie-server
-* docker-bpmapp-on-was    	Installed application on WAS that embeds the spring / jbpm engine (not complete yet)
-* docker-oracle-for-rhbpms	Oracle XE with preconfigured database schema for BPMS with XA transactions enabled
+* docker-ibm-im			
+  Base IBM installation manager image
+* docker-ibm-was			
+  Base WebSphere Application Server image
+* docker-bpm-on-was-base  	
+  Base websphere configuration with all the configured security, datasources, JMS, etc.
+* docker-bpm-on-was 		
+  Fully installed and configured business-central, dashbuilder, and kie-server
+* docker-bpmapp-on-was    	
+  Installed application on WAS that embeds the spring / jbpm engine (not complete yet)
+* docker-oracle-for-rhbpms	
+  Oracle XE with preconfigured database schema for BPMS with XA transactions enabled
 
 Sample JBPM+Spring application (work in progress)
 
-* bpm-on-was-bom	Bill of materials that includes the necessary dependencies for Spring and JBPM on WebSphere
-* fsi-bpm-process	Deployable rule and process module
-* fsi-bpm-services	Services layer hosting the engine that runs one or more rule/process modules
-* fsi-bpm-web		Web layer providing the user interface
+* bpm-on-was-bom	
+  Bill of materials that includes the necessary dependencies for Spring and JBPM on WebSphere
+* fsi-bpm-process	
+  Deployable rule and process module
+* fsi-bpm-services	
+  Services layer hosting the engine that runs one or more rule/process modules
+* fsi-bpm-web		
+  Web layer providing the user interface
 
 BPM on JBoss EAP & Tomcat (work in progress)
 
-* docker-bpm-on-jbosseap-base	Base JBoss EAP image for BPMS app or server with the configured security, datasources, JMS, etc
-* docker-bpm-on-tomcat-base		Base Tomcat image for BPMS app or server with the configured security, datasources, JMS, etc
+* docker-bpm-on-jbosseap-base	
+  Base JBoss EAP image for BPMS app or server with the configured security, datasources, JMS, etc
+* docker-bpm-on-tomcat-base		
+  Base Tomcat image for BPMS app or server with the configured security, datasources, JMS, etc
 
 ## Prerequistites
 
 Before you can build and run this set of docker images you need to download the IBM installation manager and the three part install of WebSphere Application Server 8.5 for Developers.  
 
-1. [Register for IBM developer program](https://www.ibm.com/account/profile/us?page=reg)
+### A) [Register for IBM developer program](https://www.ibm.com/account/profile/us?page=reg)
 
-2. Download IBM Installation Manager
+### B) Download IBM Installation Manager
+
 No matter what operating system you are running on for this project you will want to download the Linux x86_64 as the baseline docker image is 64bit Centos. Find and download the file matching following:
+
 ```
 Installation Manager for Linux x86_64 with WebSphere Application Server for Developers including Liberty, v8.5.5
 DEVELOPERSILAN.agent.installer.linux.gtk.x86_64.zip  (158M)   
 ```
+
 Copy this file to `fsi-bpm-refarch/docker-ibm-im/` and make sure the name matched the zip file name referenced in the `fsi-bpm-refarch/docker-ibm-im/Dockerfile` (e.g.: agent.installer.linux.gtk.x86_64_1.8.2001.20150409_1833.zip)
 
 
-3. [Download IBM Installation Manager](http://www.ibm.com/developerworks/downloads/ws/wasdevelopers/)
+### C) [Download IBM Installation Manager](http://www.ibm.com/developerworks/downloads/ws/wasdevelopers/)
 
 Download the three part WebSphere Application Server install.  
 
+Move and rename the following to `fsi-bpm-refarch/docker-ibm-was/was_part1.zip`
 ```
 IBM WebSphere Application Server for Developers, Full Profile (Part 1 of 3)
 was.repo.8550.developers.ilan_part1.zip  (1.1G) 
 ```
-Move and rename to `fsi-bpm-refarch/docker-ibm-was/was_part1.zip`
 
+Move and rename the following to `fsi-bpm-refarch/docker-ibm-was/was_part2.zip`
 ```
 IBM WebSphere Application Server for Developers, Full Profile (Part 2 of 3)
 was.repo.8550.developers.ilan_part2.zip  (1.1G) 
 ```
-Move and rename to `fsi-bpm-refarch/docker-ibm-was/was_part2.zip`
 
+Move and rename the following to `fsi-bpm-refarch/docker-ibm-was/was_part3.zip`
 ```
 IBM WebSphere Application Server for Developers, Full Profile (Part 3 of 3)
 was.repo.8550.developers.ilan_part3.zip  (903M) 
 ```
-Move and rename to `fsi-bpm-refarch/docker-ibm-was/was_part3.zip`
 
 
-4. [Install and Start docker](https://docs.docker.com/installation/)
+### D) [Install and Start docker](https://docs.docker.com/installation/)
 
 
-5. [Install Maven](https://maven.apache.org/install.html)
+### E) [Install Maven](https://maven.apache.org/install.html)
 
 
 ## Building the Reference Architecture
@@ -88,22 +103,31 @@ The following script reset the, or start, the Oracle XE database and BPMS Servic
 
 ### Oracle XE Database
 
-URI:  `jdbc:oracle:thin:@//oracleHost:1521/XE`
-User: `rhbpms`
-Pass: `rhbpms`
+* URI:  `jdbc:oracle:thin:@//oracleHost:1521/XE`
+* User: `rhbpms`
+* Pass: `rhbpms`
 
 ### BPMS Server on WAS
 
-Admin interface: `https://localhost:9043/ibm/console/`
-Admin user: 	 `admin`	pass: `Redhat1!`
+* Admin interface: `https://localhost:9043/ibm/console/`
+* Admin user: 	   `admin`	
+* Admin pass: 	   `Redhat1!`
 
-BPM Interface:	 `http://localhost:9080/business-central/`
-Super user:		 `demo`
-Developer: 		 `bpmdeveloper`
-Analyst:		 `bpmanalyst`
-Manager:		 `bpmmanager`
-User:			 `bpmuser`
-Default pass:	 `Redhat1!`
+* BPM Interface:	 
+`http://localhost:9080/business-central/`
+* Super user:		 
+`demo`
+* Developer: 		 
+`bpmdeveloper`
+* Analyst:		 
+`bpmanalyst`
+* Manager:		 
+`bpmmanager`
+* User:			 
+`bpmuser`
+* Default pass:	 
+`Redhat1!`
+
 
 ## References
 
@@ -154,9 +178,6 @@ Default pass:	 `Redhat1!`
  
 [Command assistance simplifies administrative scripting in WebSphere Application Server](http://www.ibm.com/developerworks/websphere/library/techarticles/0812_rhodes/0812_rhodes.html)
 
-````
-tail -f /opt/IBM/WebSphere8.5.5_Dev/AppServer/profiles/AppSrv01/logs/server1/commandAssistanceJythonCommands_admin.log
-````
 
 ### Oracle XE and Docker
 
