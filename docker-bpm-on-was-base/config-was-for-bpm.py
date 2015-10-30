@@ -1,19 +1,6 @@
 # WebSphere App Server configuration script for 
 # /opt/IBM/WebSphere8.5.5_Dev/AppServer/profiles/AppSrv01/bin/wsadmin.sh -lang jython -f /opt/rh/bpms/config-was-for-bpm.py
 
-# References:
-# https://www.ibm.com/developerworks/community/blogs/timdp/entry/automating_application_installation_and_configuration_into_websphere_application_server46?lang=en
-# http://www.ibm.com/developerworks/websphere/library/techarticles/1004_gibson/1004_gibson.html
-# http://www-01.ibm.com/support/knowledgecenter/SS7K4U_8.5.5/com.ibm.websphere.nd.doc/ae/cxml_jython.html
-#
-# Enabling command assistance
-# http://www.ibm.com/developerworks/websphere/library/techarticles/0812_rhodes/0812_rhodes.html
-# Command log: 
-# tail -f /opt/IBM/WebSphere8.5.5_Dev/AppServer/profiles/AppSrv01/logs/server1/commandAssistanceJythonCommands_admin.log
-# 
-# Setting session management variable
-# http://www.notonlyanecmplace.com/websphere-console-wsadmin-jython-equivalence/
-
 # Boilerplate script variables
 import os;
 installRoot = "/opt/IBM/WebSphere8.5.5_Dev/AppServer" 
