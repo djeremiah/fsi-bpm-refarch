@@ -27,9 +27,7 @@ RUN yum update -y && yum install -y unzip
 RUN groupadd -r wasadmin && useradd -r -g wasadmin wasadmin
 
 #copy I.M to image
-COPY agent.installer.linux.gtk.x86_64_1.8.2001.20150409_1833.zip tmp/installeragent.zip
-#COPY agent.installer.linux.gtk.x86_64_1.6.2000.20130301_2248.zip tmp/installeragent.zip
-#COPY agent.installer.linux.gtk.x86_1.6.2000.20130301_2248.zip tmp/installeragent.zip
+COPY agent.installer.linux.gtk.x86_64.zip tmp/installeragent.zip
 
 # unzip I.M install it and delete all files. The installation log is written to /opt/im_install.log
 RUN cd tmp && unzip installeragent.zip && ./installc -log /opt/im_install.log -acceptLicense && rm -rf *

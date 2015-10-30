@@ -42,20 +42,20 @@ BPM on JBoss EAP & Tomcat (work in progress)
 
 Before you can build and run this set of docker images you need to download the IBM installation manager and the three part install of WebSphere Application Server 8.5 for Developers.  
 
-#### A) [Register for IBM developer program](https://www.ibm.com/account/profile/us?page=reg)
+#### A) Register for IBM developer program
+
+IBM allows for free download of WebSphere application server if you [register on their site](https://www.ibm.com/account/profile/us?page=reg).
 
 #### B) Download IBM Installation Manager and WebSphere
 
 Go to the [IBM WebSphere download page](http://www.ibm.com/developerworks/downloads/ws/wasdevelopers/), click Download, select the HTTP / Download Director option, and then continue.  
 
-First download the Installation Manager for Linux x86_64. Note that you may be running this on another operating system, however the base docker image will be 64bit centos - so make sure you select the right file. 
+First, download the Installation Manager for Linux x86_64. Note that you may be running this on another operating system, however the base docker image will be 64bit centos - so make sure you select the right file.  Move the file and rename it to `fsi-bpm-refarch/docker-ibm-im/agent.installer.linux.gtk.x86_64.zip` 
 
 ```
 Installation Manager for Linux x86_64 with WebSphere Application Server for Developers including Liberty, v8.5.5
 DEVELOPERSILAN.agent.installer.linux.gtk.x86_64.zip  (158M)   
 ```
-
-Copy this file to `fsi-bpm-refarch/docker-ibm-im/` and make sure the name matched the zip file name referenced in the `fsi-bpm-refarch/docker-ibm-im/Dockerfile` (e.g.: agent.installer.linux.gtk.x86_64_1.8.2001.20150409_1833.zip)
 
 Next, download the three part WebSphere Application Server install.  
 
