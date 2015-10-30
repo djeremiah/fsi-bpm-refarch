@@ -92,6 +92,7 @@ The following script will both build the JBPM+Spring application, and build the 
 ``` 
 ./docker-build.sh
 ```
+The initial build may take some time, but the incremental builds will be much faster due to docker layering.
 
 ## Starting and Stopping the Reference Architecture
 
@@ -101,12 +102,6 @@ The following script reset the, or start, the Oracle XE database and BPMS Servic
 ```
 
 ## Accessing the Environment
-
-### Oracle XE Database
-
-* URI:  `jdbc:oracle:thin:@//oracleHost:1521/XE`
-* User: `rhbpms`
-* Pass: `rhbpms`
 
 ### BPMS Server on WAS
 
@@ -121,6 +116,28 @@ The following script reset the, or start, the Oracle XE database and BPMS Servic
 * Manager:		 `bpmmanager`
 * User:			 `bpmuser`
 * Default pass:	 `Redhat1!`
+
+### Oracle XE Database
+
+Oracle can be connected to and browsed using a tool like sqlplus, [ExecuteQuery](http://executequery.org), Toad, or others.
+
+* URI:  `jdbc:oracle:thin:@//oracleHost:1521/XE`
+* User: `rhbpms`
+* Pass: `rhbpms`
+
+## Roadmap
+
+1. Complete Spring+BPM application, and the bill-of-materials
+1. Create promotion deployment script that pushed kjar and dependencies to execution environment, and signals deployment
+1. Add gitlab server, and demonstrate git_hooks
+1. Add user impersonation to Spring+BPM application
+1. Configure an SSO provider
+1. Add a load balancer, verify business-central & dashbuilder process report
+1. Create repository of custom work item handlers, and pull into design environment 
+1. Create a 2 node cluster of WebSphere
+1. Create BOM for JBoss EAP and Tomcat
+1. Script install of business-central, dashbuilder, and kie-server on Tomcat
+1. Create promotion package script that gathers kjar and dependencies from design environment
 
 
 ## References
