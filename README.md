@@ -44,9 +44,11 @@ Before you can build and run this set of docker images you need to download the 
 
 ### A) [Register for IBM developer program](https://www.ibm.com/account/profile/us?page=reg)
 
-### B) Download IBM Installation Manager
+### B) Download IBM Installation Manager and WebSphere
 
-No matter what operating system you are running on for this project you will want to download the Linux x86_64 as the baseline docker image is 64bit Centos. Find and download the file matching following:
+Go to the [IBM WebSphere download page](http://www.ibm.com/developerworks/downloads/ws/wasdevelopers/), click Download, select the HTTP / Download Director option, and then continue.  
+
+First download the Installation Manager for Linux x86_64. Note that you may be running this on another operating system, however the base docker image will be 64bit centos - so make sure you select the right file. 
 
 ```
 Installation Manager for Linux x86_64 with WebSphere Application Server for Developers including Liberty, v8.5.5
@@ -55,10 +57,7 @@ DEVELOPERSILAN.agent.installer.linux.gtk.x86_64.zip  (158M)
 
 Copy this file to `fsi-bpm-refarch/docker-ibm-im/` and make sure the name matched the zip file name referenced in the `fsi-bpm-refarch/docker-ibm-im/Dockerfile` (e.g.: agent.installer.linux.gtk.x86_64_1.8.2001.20150409_1833.zip)
 
-
-### C) [Download IBM Installation Manager](http://www.ibm.com/developerworks/downloads/ws/wasdevelopers/)
-
-Download the three part WebSphere Application Server install.  
+Next, download the three part WebSphere Application Server install.  
 
 Move and rename the following to `fsi-bpm-refarch/docker-ibm-was/was_part1.zip`
 ```
