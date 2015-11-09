@@ -79,7 +79,7 @@ was.repo.8550.developers.ilan_part3.zip  (903M)
 
 #### C) Download JBoss BPM Suite for WebSphere
 
-Download [boss-bpmsuite-6.1.0.GA-deployable-was8.zip](https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=37663&product=bpm.suite&version=&downloadType=distributions) then moveto `fsi-bpm-refarch/docker-ibm-was/jboss-bpmsuite-6.1.0.GA-deployable-was8.zip`
+Download [boss-bpmsuite-6.1.0.GA-deployable-was8.zip](https://access.redhat.com/jbossnetwork/restricted/softwareDetail.html?softwareId=37663&product=bpm.suite&version=&downloadType=distributions) then moveto `fsi-bpm-refarch/docker-bpm-on-was/jboss-bpmsuite-6.1.0.GA-deployable-was8.zip`
 
 
 #### D) Install and Start docker
