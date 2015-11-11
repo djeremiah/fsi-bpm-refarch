@@ -18,11 +18,11 @@ appName = "rhbpms-kieserver"
 
 print "Installing kie-server application"
 AdminApp.install(rhbpmsFileRoot+'/kie-server.war', '[ -appname '+appName+' -contextroot kie-server  '
-+'-MapResRefToEJB [[ kie-server.war KieServerMDB kie-server.war,WEB-INF/ejb-jar.xml org.kie.server.jms.KieServerMDB/factory javax.jms.ConnectionFactory jms/conn/KIE.SERVER.REQUEST "" "" "" ]] '
-+'-MapModulesToServers [[ kie-server.war kie-server.war,WEB-INF/web.xml '+server+' ]] '
++'-MapResRefToEJB [[ KieServer KieServerMDB kie-server.war,WEB-INF/ejb-jar.xml org.kie.server.jms.KieServerMDB/factory javax.jms.ConnectionFactory jms/conn/KIE.SERVER.REQUEST "" "" "" ]] '
++'-MapModulesToServers [[ KieServer kie-server.war,WEB-INF/web.xml '+server+' ]] '
 +'-MapWebModToVH [[ .* .* default_host ]] '
 +'-CtxRootForWebMod [[ .* .* kie-server ]] '
-+'-BindJndiForEJBMessageBinding [[ kie-server.war KieServerMDB kie-server.war,WEB-INF/ejb-jar.xml "" jms/activation/KIE.SERVER.REQUEST "" "" ]]'
++'-BindJndiForEJBMessageBinding [[ KieServer KieExecutorMDB kie-server.war,WEB-INF/ejb-jar.xml "" jms/activation/KIE.EXECUTOR "" "" ][ KieServer KieServerMDB kie-server.war,WEB-INF/ejb-jar.xml "" jms/activation/KIE.SERVER.REQUEST "" "" ]]'
 +']' )
 
 

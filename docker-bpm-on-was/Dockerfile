@@ -1,6 +1,7 @@
 FROM docker-bpm-on-was-base
 
-COPY jboss-bpmsuite-6.1.0.GA-deployable-was8.zip /opt/rh/bpms/jboss-bpmsuite-6.1.0.GA-deployable-was8.zip
+#COPY jboss-bpmsuite-6.1.0.GA-deployable-was8.zip /opt/rh/bpms/jboss-bpmsuite-was8.zip
+COPY jboss-bpmsuite-6.2.0.ER4-deployable-was8.zip /opt/rh/bpms/jboss-bpmsuite-was8.zip
 RUN yum install -y zip
 COPY prepare-wars.sh /opt/rh/bpms/prepare-wars.sh
 

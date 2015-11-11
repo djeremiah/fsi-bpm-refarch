@@ -31,16 +31,28 @@ AdminApp.install(rhbpmsFileRoot+'/business-central.war', '[ -appname '+appName+'
 +'-BindJndiForEJBMessageBinding ['
 	+'[ business-central.war KieSessionRequesMessageBean business-central.war,WEB-INF/ejb-jar.xml "" jms/activation/KIE.SESSION "" "" ]'
 	+'[ business-central.war TaskServiceRequesMessageBean business-central.war,WEB-INF/ejb-jar.xml "" jms/activation/KIE.TASK "" "" ]'
-	+'[ business-central.war JMSAuditProcessor business-central.war,WEB-INF/ejb-jar.xml "" jms/activation/KIE.AUDIT "" "" ]]'
+	+'[ business-central.war JMSAuditProcessor business-central.war,WEB-INF/ejb-jar.xml "" jms/activation/KIE.AUDIT "" "" ]'
+	+'[ business-central.war JmsAvailableJobsExecutor business-central.war,WEB-INF/ejb-jar.xml "" jms/activation/KIE.EXECUTOR "" "" ]'
+	+'[ business-central.war JMSSignalReceiver business-central.war,WEB-INF/ejb-jar.xml "" jms/activation/KIE.SIGNAL "" "" ]]'
 +']' )
 
 print "Mapping groups to users"
+
 AdminApp.edit(appName, '[  -MapRolesToUsers ['
 +'[ admin AppDeploymentOption.No AppDeploymentOption.No "" admin AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=admin,o=defaultWIMFileBasedRealm ]'
 +'[ developer AppDeploymentOption.No AppDeploymentOption.No "" developer AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=developer,o=defaultWIMFileBasedRealm ]'
 +'[ analyst AppDeploymentOption.No AppDeploymentOption.No "" analyst AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=analyst,o=defaultWIMFileBasedRealm ]'
 +'[ manager AppDeploymentOption.No AppDeploymentOption.No "" manager AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=manager,o=defaultWIMFileBasedRealm ]'
-+'[ user AppDeploymentOption.No AppDeploymentOption.No "" user AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=user,o=defaultWIMFileBasedRealm ]]]')
++'[ user AppDeploymentOption.No AppDeploymentOption.No "" user AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=user,o=defaultWIMFileBasedRealm ]'
++'[ rest-all AppDeploymentOption.No AppDeploymentOption.No "" rest-all AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=rest-all,o=defaultWIMFileBasedRealm ]'
++'[ rest-project AppDeploymentOption.No AppDeploymentOption.No "" rest-project AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=rest-project,o=defaultWIMFileBasedRealm ]'
++'[ rest-deployment AppDeploymentOption.No AppDeploymentOption.No "" rest-deployment AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=rest-deployement,o=defaultWIMFileBasedRealm ]'
++'[ rest-process AppDeploymentOption.No AppDeploymentOption.No "" rest-process AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=rest-process,o=defaultWIMFileBasedRealm ]'
++'[ rest-process-read-only AppDeploymentOption.No AppDeploymentOption.No "" rest-process-read-only AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=rest-process-read-only,o=defaultWIMFileBasedRealm ]'
++'[ rest-task AppDeploymentOption.No AppDeploymentOption.No "" rest-task AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=rest-task,o=defaultWIMFileBasedRealm ]'
++'[ rest-task-read-only AppDeploymentOption.No AppDeploymentOption.No "" rrest-task-read-only AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=rest-task-read-only,o=defaultWIMFileBasedRealm ]'
++'[ rest-query AppDeploymentOption.No AppDeploymentOption.No "" rest-query AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=rest-query,o=defaultWIMFileBasedRealm ]'
++'[ rest-client AppDeploymentOption.No AppDeploymentOption.No "" rest-client AppDeploymentOption.No "" group:defaultWIMFileBasedRealm/cn=rest-client,o=defaultWIMFileBasedRealm ]]]')
 
 
 print "Setting classloader to single"

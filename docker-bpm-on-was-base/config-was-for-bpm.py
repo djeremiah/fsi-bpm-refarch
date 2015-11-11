@@ -46,6 +46,17 @@ AdminTask.createGroup('[-cn manager -description BPMManager]')
 AdminTask.createGroup('[-cn user -description BPMUser]')
 AdminTask.createGroup('[-cn kie-server -description KIE-Server]')
 
+AdminTask.createGroup('[-cn rest-all -description rest-all]')
+AdminTask.createGroup('[-cn rest-project -description rest-project]')
+AdminTask.createGroup('[-cn rest-deployment -description rest-deployment]')
+AdminTask.createGroup('[-cn rest-process -description rest-process]')
+AdminTask.createGroup('[-cn rest-process-read-only -description rest-process-read-only]')
+AdminTask.createGroup('[-cn rest-task -description rest-task]')
+AdminTask.createGroup('[-cn rest-task-read-only -description rest-task-read-only]')
+AdminTask.createGroup('[-cn rest-query -description rest-query]')
+AdminTask.createGroup('[-cn rest-client -description rest-client]')
+
+
 AdminTask.createUser('[-uid '+mainUser+' -password '+defaultPass+' -confirmPassword '+defaultPass+' -cn '+mainUser+' -sn BPMAdmin]')
 AdminTask.addMemberToGroup('[-memberUniqueName uid='+mainUser+',o=defaultWIMFileBasedRealm -groupUniqueName cn=admin,o=defaultWIMFileBasedRealm]')
 AdminTask.addMemberToGroup('[-memberUniqueName uid='+mainUser+',o=defaultWIMFileBasedRealm -groupUniqueName cn=developer,o=defaultWIMFileBasedRealm]')
@@ -54,17 +65,23 @@ AdminTask.addMemberToGroup('[-memberUniqueName uid='+mainUser+',o=defaultWIMFile
 AdminTask.addMemberToGroup('[-memberUniqueName uid='+mainUser+',o=defaultWIMFileBasedRealm -groupUniqueName cn=user,o=defaultWIMFileBasedRealm]')
 AdminTask.addMemberToGroup('[-memberUniqueName uid='+mainUser+',o=defaultWIMFileBasedRealm -groupUniqueName cn=kie-server,o=defaultWIMFileBasedRealm]')
 
+AdminTask.addMemberToGroup('[-memberUniqueName uid='+mainUser+',o=defaultWIMFileBasedRealm -groupUniqueName cn=rest-all,o=defaultWIMFileBasedRealm]')
+
 AdminTask.createUser('[-uid bpmdeveloper -password '+defaultPass+' -confirmPassword '+defaultPass+' -cn developer -sn BPMDeveloper]')
 AdminTask.addMemberToGroup('[-memberUniqueName uid=bpmdeveloper,o=defaultWIMFileBasedRealm -groupUniqueName cn=developer,o=defaultWIMFileBasedRealm ]')
+AdminTask.addMemberToGroup('[-memberUniqueName uid=bpmdeveloper,o=defaultWIMFileBasedRealm -groupUniqueName cn=rest-all,o=defaultWIMFileBasedRealm]')
 
 AdminTask.createUser('[-uid bpmanalyst -password '+defaultPass+' -confirmPassword '+defaultPass+' -cn analyst -sn BPMAnalyst]')
 AdminTask.addMemberToGroup('[-memberUniqueName uid=bpmanalyst,o=defaultWIMFileBasedRealm -groupUniqueName cn=analyst,o=defaultWIMFileBasedRealm]')
+AdminTask.addMemberToGroup('[-memberUniqueName uid=bpmanalyst,o=defaultWIMFileBasedRealm -groupUniqueName cn=rest-all,o=defaultWIMFileBasedRealm]')
 
 AdminTask.createUser('[-uid bpmmanager -password '+defaultPass+' -confirmPassword '+defaultPass+' -cn manager -sn BPMManager]')
 AdminTask.addMemberToGroup('[-memberUniqueName uid=bpmmanager,o=defaultWIMFileBasedRealm -groupUniqueName cn=manager,o=defaultWIMFileBasedRealm]')
+AdminTask.addMemberToGroup('[-memberUniqueName uid=bpmmanager,o=defaultWIMFileBasedRealm -groupUniqueName cn=rest-all,o=defaultWIMFileBasedRealm]')
 
 AdminTask.createUser('[-uid bpmuser -password '+defaultPass+' -confirmPassword '+defaultPass+' -cn user -sn BPMUser]')
 AdminTask.addMemberToGroup('[-memberUniqueName uid=bpmuser,o=defaultWIMFileBasedRealm -groupUniqueName cn=user,o=defaultWIMFileBasedRealm]')
+AdminTask.addMemberToGroup('[-memberUniqueName uid=bpmuser,o=defaultWIMFileBasedRealm -groupUniqueName cn=rest-all,o=defaultWIMFileBasedRealm]')
 
 AdminConfig.save();
 
@@ -113,6 +130,8 @@ AdminTask.createSIBJMSConnectionFactory(server, '[-name KIE.RESPONSE.ALL -jndiNa
 AdminTask.createSIBJMSConnectionFactory(server, '[-name KIE.INPUT -jndiName jms/conn/KIE.INPUT -busName '+rhbpmsBusName+']')
 AdminTask.createSIBJMSConnectionFactory(server, '[-name KIE.SERVER.REQUEST -jndiName jms/conn/KIE.SERVER.REQUEST -busName '+rhbpmsBusName+']')
 AdminTask.createSIBJMSConnectionFactory(server, '[-name KIE.SERVER.RESPONSE -jndiName jms/conn/KIE.SERVER.RESPONSE -busName '+rhbpmsBusName+']')
+## Additional conn factory for 6.2
+AdminTask.createSIBJMSConnectionFactory(server, '[-name KIE.EXECUTOR -jndiName jms/conn/KIE.EXECUTOR -busName '+rhbpmsBusName+']')
 
 ## Create Destinations and Integratin Bus Destinations
 AdminTask.createSIBDestination('[-bus '+rhbpmsBusName+' -name KIE.AUDIT -type Queue -reliability ASSURED_PERSISTENT -description  -node '+node+' -server '+serverName+' ]')
@@ -138,6 +157,14 @@ AdminTask.createSIBDestination('[-bus '+rhbpmsBusName+' -name KIE.SERVER.RESPONS
 AdminTask.createSIBJMSQueue(server, '[-name KIE.SERVER.RESPONSE -jndiName jms/KIE.SERVER.RESPONSE -busName '+rhbpmsBusName+' -queueName KIE.SERVER.RESPONSE ]')
 AdminTask.createSIBJMSActivationSpec(server, '[-name KIE.SERVER.RESPONSE -jndiName jms/activation/KIE.SERVER.RESPONSE -destinationJndiName jms/KIE.SERVER.RESPONSE -busName '+rhbpmsBusName+' -destinationType javax.jms.Queue ]')
 
+## Additional destinations for 6.2
+AdminTask.createSIBDestination('[-bus '+rhbpmsBusName+' -name KIE.EXECUTOR -type Queue -reliability ASSURED_PERSISTENT -description  -node '+node+' -server '+serverName+' ]')
+AdminTask.createSIBJMSQueue(server, '[-name KIE.EXECUTOR -jndiName jms/KIE.EXECUTOR -busName '+rhbpmsBusName+' -queueName KIE.EXECUTOR ]')
+AdminTask.createSIBJMSActivationSpec(server, '[-name KIE.EXECUTOR -jndiName jms/activation/KIE.EXECUTOR -destinationJndiName jms/KIE.EXECUTOR -busName '+rhbpmsBusName+' -destinationType javax.jms.Queue ]')
+
+AdminTask.createSIBDestination('[-bus '+rhbpmsBusName+' -name KIE.SIGNAL -type Queue -reliability ASSURED_PERSISTENT -description  -node '+node+' -server '+serverName+' ]')
+AdminTask.createSIBJMSQueue(server, '[-name KIE.SIGNAL -jndiName jms/KIE.SIGNAL -busName '+rhbpmsBusName+' -queueName KIE.SIGNAL ]')
+AdminTask.createSIBJMSActivationSpec(server, '[-name KIE.SIGNAL -jndiName jms/activation/KIE.SIGNAL -destinationJndiName jms/KIE.SIGNAL -busName '+rhbpmsBusName+' -destinationType javax.jms.Queue ]')
 
 #######################################
 # Create Environment Variables
@@ -145,6 +172,8 @@ AdminTask.createSIBJMSActivationSpec(server, '[-name KIE.SERVER.RESPONSE -jndiNa
 AdminConfig.create('VariableSubstitutionEntry', varmap, '[[symbolicName "jbpm.ut.jndi.lookup"] [description ""] [value "jta/usertransaction"]]')
 AdminConfig.create('VariableSubstitutionEntry', varmap, '[[symbolicName "kie.services.jms.queues.response"] [description ""] [value "jms/KIE.RESPONSE.ALL"]]')
 AdminConfig.create('VariableSubstitutionEntry', varmap, '[[symbolicName "kie.services.rest.deploy.async"] [description ""] [value "false"]]')
+AdminConfig.create('VariableSubstitutionEntry', varmap, '[[symbolicName "org.kie.executor.jms.queue"] [description ""] [value "jms/KIE.EXECUTOR"]]')
+AdminConfig.create('VariableSubstitutionEntry', varmap, '[[symbolicName "org.kie.executor.jms.cf"] [description ""] [value "jms/conn/KIE.EXECUTOR"]]')
 AdminConfig.create('VariableSubstitutionEntry', varmap, '[[symbolicName "kie.server.jms.queues.response"] [description ""] [value "jms/conn/KIE.SERVER.RESPONSE"]]')
 AdminConfig.create('VariableSubstitutionEntry', varmap, '[[symbolicName "org.jboss.logging.provider"] [description ""] [value "jdk"]]')
 
